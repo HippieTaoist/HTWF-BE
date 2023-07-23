@@ -14,46 +14,54 @@ router.get('/test', (req, res) => res.send('blogpost route testing!'));
 //@access Public
 router.get('/', (req, res) => {
   BlogPost.find()
-    .then((books) => res.json(books))
-    .catch((err) => res.status(404).json({ nobooksfound: 'No Books Found' }));
+    .then((blogposts) => res.json(blogposts))
+    .catch((err) =>
+      res.status(404).json({ noblogpostsfound: 'No Blog Posts Found' })
+    );
 });
 
 //@route GET api/books/:id
 //@description Get single book by id
 //@access Public
 router.get('/:id', (req, res) => {
-  Book.findById(req.params.id)
-    .then((book) => res.json(book))
-    .catch((err) => res.status(404).json({ nobookfound: 'No Book Found' }));
+  BlogPost.findById(req.params.id)
+    .then((blogpost) => res.json(blogpost))
+    .catch((err) =>
+      res.status(404).json({ noblogpostfound: 'No Blog Post Found' })
+    );
 });
 
-//@route GET api/books
+//@route GET api/blogposts
 //@description add/save book
 //@access Public
 router.post('/', (req, res) => {
-  Book.create(req.body)
-    .then((book) => res.json({ msg: 'Book added successfully' }))
-    .catch((err) => res.status(404).json({ error: 'Unable to add this book' }));
+  BlogPost.create(req.body)
+    .then((blogpost) => res.json({ msg: 'Blog Post added successfully' }))
+    .catch((err) =>
+      res.status(404).json({ error: 'Unable to add this blog post' })
+    );
 });
 
-//@route GET api/books/:id
+//@route GET api/blogposts/:id
 //@description Update book
 //@access Public
 router.put('/:id', (req, res) => {
   Book.findByIdAndUpdate(req.params.id, req.body)
-    .then((book) => res.json({ msg: 'Updated successfully' }))
+    .then((blogpost) => res.json({ msg: 'Updated successfully' }))
     .catch((err) =>
       res.status(400).json({ error: 'Unable to update the Database' })
     );
 });
 
-//@route GET api/books/:id
-//@description Delete book by id
+//@route GET api/blogposts/:id
+//@description Delete blog post by id
 //@access Public
 router.delete('/:id', (req, res) => {
   Book.findByIdAndDelete(req.params.id, req.body)
-    .then((book) => res.json({ msg: 'Book entry deleted successfully' }))
-    .catch((err) => res.status(404).json({ error: 'No such a book' }));
+    .then((blogpost) =>
+      res.json({ msg: 'Blog Post entry deleted successfully' })
+    )
+    .catch((err) => res.status(404).json({ error: 'No such a blog post' }));
 });
 
 module.exports = router;
