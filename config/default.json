@@ -1,4 +1,4 @@
 {
   "mongoURI": "mongodb+srv://hippietaoist:ga4Wtr8yeTd8kDlJ@cluster0.dykqidv.mongodb.net/?retryWrites=true&w=majority",
-  "localMongoURI":"mongodb://localhost:27017/HTWF_DB"
+  "localMongoURI":"mongodb://127.0.0.1:27017/HTWF_DB"
 }

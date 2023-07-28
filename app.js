@@ -7,7 +7,7 @@ const cors = require('cors');
 
 // routes
 const books = require('./routes/api/books');
-const blogPosts = require('./routes/api/blogposts');
+const blogPosts = require('./routes/api/blogPosts');
 
 const app = express();
 
