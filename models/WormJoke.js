@@ -1,11 +1,7 @@
 const mongoose = require('mongoose');
 
 const WormJokeSchema = new mongoose.Schema({
-  main_img: {
-    type: String,
-    default: '../imgs/Yin_and_Yang_symbol.svg.png',
-  },
-  title: {
+  type: {
     type: String,
     required: true,
   },
@@ -13,8 +9,17 @@ const WormJokeSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  post_body: {
+  question: {
     type: String,
+  },
+  answer: {
+    type: String,
+  },
+  story: {
+    type: String,
+  },
+  image: {
+    type: { type: String },
   },
   published_date: {
     type: Date,
@@ -25,4 +30,4 @@ const WormJokeSchema = new mongoose.Schema({
   },
 });
 
-module.exports = BlogPost = mongoose.model('wormjoke', WormJokenodemonSchema);
+module.exports = BlogPost = mongoose.model('wormjoke', WormJokeSchema);
