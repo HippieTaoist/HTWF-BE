@@ -4,6 +4,7 @@ const WormJokeSchema = new mongoose.Schema({
   type: {
     type: String,
     required: true,
+    enum: ['Q&A', 'Meme', 'Story'],
   },
   author: {
     type: String,
