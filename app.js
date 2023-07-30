@@ -8,6 +8,7 @@ const cors = require('cors');
 // routes
 const books = require('./routes/api/books');
 const blogPosts = require('./routes/api/blogPosts');
+const wormJokes = require('./routes/api/wormJokes');
 
 const app = express();
 
@@ -20,11 +21,14 @@ app.use(cors({ origin: true, credentials: true }));
 // Init Middleware
 app.use(express.json({ extended: false }));
 
-app.get('/', (req, res) => res.send('Hello world!'));
+app.get('/', (req, res) =>
+  res.send('Hello world! This is not the page you are looking for.')
+);
 
 // use Routes
 app.use('/api/books', books);
 app.use('/api/blogposts', blogPosts);
+app.use('/api/wormjokes', wormJokes);
 
 const port = process.env.PORT || 8082;
 
