@@ -9,17 +9,11 @@ const WormTipSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  question: {
-    type: String,
-  },
-  answer: {
-    type: String,
-  },
-  story: {
+  tips: {
     type: String,
   },
   image: {
-    type: { type: String },
+    type: String,
   },
   published_date: {
     type: Date,
