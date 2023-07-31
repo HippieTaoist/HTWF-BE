@@ -11,13 +11,11 @@ const WormSchema = new mongoose.Schema({
     husbandry:{
       bedding: [{type:Schema.ObjectId, ref:'bedding'}],
 
-      bin_types: [{type:Schema.ObjectId, ref:'bin_types'}],
+      bin: [{type:Schema.ObjectId, ref:'bin'}],
 
-      feed_diet: [{type:Schema.ObjectId, ref:'feed_diet'}],
+      diet: [{type:Schema.ObjectId, ref:'diet'}],
 
-      issues_resolutions: [{type:Schema.ObjectId, ref:'issues_resolutions'}],
-
-      worm_types: [{type:Schema.ObjectId, ref:'worm_types'}],
+      issue_resolution: [{type:Schema.ObjectId, ref:'issue_resolution'}],
 },
   description: {
     type: String,
