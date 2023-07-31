@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 
-const BeddingSchema = new mongoose.Schema({
+const Issue_ResolutionSchema = new mongoose.Schema({
   type: {
     type: String,
     required: true,
   },
-  pros: {
+  issue: {
     type: String,
   },
-  cons: {
+  resolution: {
     type: String,
   },
   description: {
@@ -17,6 +17,42 @@ const BeddingSchema = new mongoose.Schema({
   image: {
     type: { type: String },
   },
+  beddings: [
+    {
+      type: Schema.ObjectId,
+      ref: 'bedding',
+    },
+  ],
+  bins: [
+    {
+      type: Schema.ObjectId,
+      ref: 'bin',
+    },
+  ],
+  diets: [
+    {
+      type: Schema.ObjectId,
+      ref: 'diet',
+    },
+  ],
+  worms: [
+    {
+      type: Schema.ObjectId,
+      ref: 'worm',
+    },
+  ],
+  temperature: [
+    {
+      type: Schema.ObjectId,
+      ref: 'temperature',
+    },
+  ],
+  pests_bugs: [
+    {
+      type: Schema.ObjectId,
+      ref: 'pest_bug',
+    },
+  ],
   author: {
     type: String,
     required: true,
@@ -30,4 +66,7 @@ const BeddingSchema = new mongoose.Schema({
   },
 });
 
-module.exports = <Bedding></Bedding> = mongoose.model('bedding', BeddingSchema);
+module.exports = Issue_Resolution = mongoose.model(
+  'issue_resolution',
+  Issue_ResolutionSchema
+);
