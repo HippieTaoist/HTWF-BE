@@ -17,6 +17,8 @@ const BeddingSchema = new mongoose.Schema({
   image: {
     type: { type: String },
   },
+  worms: [{ type: Schema.ObjectId, ref: 'worm' }],
+  issues_resolutions: [{ type: Schema.ObjectId, ref: 'issue_resolution' }],
   author: {
     type: String,
     required: true,
@@ -30,4 +32,4 @@ const BeddingSchema = new mongoose.Schema({
   },
 });
 
-module.exports = <Bedding></Bedding> = mongoose.model('bedding', BeddingSchema);
+module.exports = Bedding = mongoose.model('bedding', BeddingSchema);
