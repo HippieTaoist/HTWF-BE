@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const BinSchema = new mongoose.Schema({
+const DietSchema = new mongoose.Schema({
   type: {
     type: String,
     required: true,
@@ -17,7 +17,9 @@ const BinSchema = new mongoose.Schema({
   image: {
     type: { type: String },
   },
-  diy:{type:objectI}
+  diys: [{ type: Schema.ObjectId, ref: 'diy' }],
+  worms: [{ type: Schema.ObjectId, ref: 'worm' }],
+  issues_resolutions: [{ type: Schema.ObjectId, ref: 'issue_resolution' }],
   author: {
     type: String,
     required: true,
@@ -31,4 +33,4 @@ const BinSchema = new mongoose.Schema({
   },
 });
 
-module.exports = <Bedding></Bedding> = mongoose.model('bedding', BinSchema);
+module.exports = Diet = mongoose.model('diet', DietSchema);
