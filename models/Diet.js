@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const BeddingSchema = new mongoose.Schema({
+const BinSchema = new mongoose.Schema({
   type: {
     type: String,
     required: true,
@@ -17,6 +17,7 @@ const BeddingSchema = new mongoose.Schema({
   image: {
     type: { type: String },
   },
+  diy:{type:objectI}
   author: {
     type: String,
     required: true,
@@ -30,4 +31,4 @@ const BeddingSchema = new mongoose.Schema({
   },
 });
 
-module.exports = <Bedding></Bedding> = mongoose.model('bedding', BeddingSchema);
+module.exports = <Bedding></Bedding> = mongoose.model('bedding', BinSchema);
