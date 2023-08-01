@@ -4,7 +4,6 @@ const WormJokeSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
-    t,
   },
   type: {
     type: String,
