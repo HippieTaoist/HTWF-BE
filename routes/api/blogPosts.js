@@ -46,7 +46,7 @@ router.post('/', (req, res) => {
 //@description Update book
 //@access Public
 router.put('/:id', (req, res) => {
-  Book.findByIdAndUpdate(req.params.id, req.body)
+  BlogPost.findByIdAndUpdate(req.params.id, req.body)
     .then((blogpost) => res.json({ msg: 'Updated successfully' }))
     .catch((err) =>
       res.status(400).json({ error: 'Unable to update the Database' })
@@ -57,7 +57,7 @@ router.put('/:id', (req, res) => {
 //@description Delete blog post by id
 //@access Public
 router.delete('/:id', (req, res) => {
-  Book.findByIdAndDelete(req.params.id, req.body)
+  BlogPost.findByIdAndDelete(req.params.id, req.body)
     .then((blogpost) =>
       res.json({ msg: 'Blog Post entry deleted successfully' })
     )
