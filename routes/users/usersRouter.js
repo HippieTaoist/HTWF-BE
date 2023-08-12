@@ -10,5 +10,5 @@ const {
   userLogin,
   userProfile,
   userUpdate,
-  userrDelete,
+  userDelete: userDelete,
 } = require('../users/controller/usersController');
