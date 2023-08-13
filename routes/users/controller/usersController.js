@@ -1,42 +1,42 @@
-const User = require("../model/User");
+const User = require('../model/User');
 
-const bcrypt = require("bcryptjs");
-const { isEmpty, isAlpha, isEmail, isStrongPassword } = require("validator");
+const bcrypt = require('bcryptjs');
+const { isEmpty, isAlpha, isEmail, isStrongPassword } = require('validator');
 
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 
-const errorHandler = require("../../../utils/errorHandler/errorHandler");
-const userDecodeAndFind = require("../../../utils/userDecodeAndFind/userDecodeAndFind");
-const passwordHasher = require("../../../utils/passwordHasher/passwordHasher");
+const errorHandler = require('../../../utils/errorHandler/errorHandler');
+const userDecodeAndFind = require('../../../utils/userDecodeAndFind/userDecodeAndFind');
+const passwordHasher = require('../../../utils/passwordHasher/passwordHasher');
 
 async function usersGet(req, res) {
-  console.log("");
-  console.log("");
-  console.log("          usersGet called");
-  console.log("");
-  console.log("");
+  console.log('');
+  console.log('');
+  console.log('          usersGet called');
+  console.log('');
+  console.log('');
 
   try {
     let payload = await user.find({});
 
     res.json({
-      message: "Successfully Retrieved",
+      message: 'Successfully Retrieved',
       payload: payload,
     });
   } catch (err) {
     res.status(500).json({
-      message: "Failed Fetching",
+      message: 'Failed Fetching',
       error: errorHandler(err),
     });
   }
 }
 
 async function userGet(req, res) {
-  console.log("");
-  console.log("");
-  console.log("          userGet Called");
-  console.log("");
-  console.log("");
+  console.log('');
+  console.log('');
+  console.log('          userGet Called');
+  console.log('');
+  console.log('');
 
   try {
     console.log(req.params);
@@ -46,23 +46,23 @@ async function userGet(req, res) {
     console.log(payload);
 
     res.json({
-      message: "Successfully Retrieved!!",
+      message: 'Successfully Retrieved!!',
       payload: payload,
     });
   } catch (err) {
     res.status(500).json({
-      message: "Failed Fetching",
+      message: 'Failed Fetching',
       message: errorHandler(err),
     });
   }
 }
 
 async function userCreate(req, res) {
-  console.log("");
-  console.log("");
-  console.log("          userCreate called");
-  console.log("");
-  console.log("");
+  console.log('');
+  console.log('');
+  console.log('          userCreate called');
+  console.log('');
+  console.log('');
 
   const { userLevel, nameFirst, nameLast, username, email, password } =
     req.body;
@@ -70,30 +70,32 @@ async function userCreate(req, res) {
   console.log(req.body);
 
   try {
-    let passwordHashed = await passwordHasher(password);
-
-    console.log("passwordHashed", passwordHashed);
+    let passwordHashed = await passwordHasher(password).then(
+      (passwordHashed) => {
+        console.log('passwordHashed', passwordHashed);
+      }
+    );
 
     const userCreated = new User({
-      userLevel,
       nameFirst,
       nameLast,
       username,
       email,
       password: passwordHashed,
+      userLevel,
     });
 
     let savedUser = await userCreated.save();
 
     res.json({
-      message: "Successful User Creation",
+      message: 'Successful User Creation',
       payload: savedUser,
     });
   } catch (err) {
     console.log(err);
 
     res.status(500).json({
-      message: "Error in Creating User",
+      message: 'Error in Creating User',
       error: errorHandler(err),
       errMess: err.message,
     });
@@ -101,11 +103,11 @@ async function userCreate(req, res) {
 }
 
 async function userLogin(req, res) {
-  console.log("");
-  console.log("");
-  console.log("          userLoginCalled");
-  console.log("");
-  console.log("");
+  console.log('');
+  console.log('');
+  console.log('          userLoginCalled');
+  console.log('');
+  console.log('');
 
   const { email, username, password } = req.body;
 
@@ -118,29 +120,29 @@ async function userLogin(req, res) {
       userFound = await User.findOne({
         username: username,
       });
-      console.log("username ueFound", userFound);
+      console.log('username ueFound', userFound);
     } else {
       userFound = await User.findOne({
         email: email,
       });
-      console.log("email userFound", userFound);
+      console.log('email userFound', userFound);
     }
 
-    console.log("Final userFound", userFound);
+    console.log('Final userFound', userFound);
 
     if (!userFound) {
       return res.status(500).json({
-        message: "Error in Logging in User",
-        error: "Go Sign Up",
+        message: 'Error in Logging in User',
+        error: 'Go Sign Up',
       });
     } else {
       let passwordCompare = await bcrypt.compare(password, userFound.password);
 
       if (!passwordCompare) {
         return res.status(500).json({
-          message: "error",
+          message: 'error',
           error:
-            "That does not match our records. Please review login information.",
+            'That does not match our records. Please review login information.',
         });
       } else {
         const {
@@ -165,11 +167,11 @@ async function userLogin(req, res) {
           },
           process.env.SECRET_KEY,
           {
-            expiresIn: "2400h",
+            expiresIn: '2400h',
           }
         );
         return res.json({
-          message: "Success Tokenizing",
+          message: 'Success Tokenizing',
           payload: jwtToken,
         });
       }
@@ -177,18 +179,18 @@ async function userLogin(req, res) {
   } catch (err) {
     console.log(err);
     res.status(500).json({
-      message: "Login Error...",
+      message: 'Login Error...',
       Error: errorHandler(err),
     });
   }
 }
 
 async function userProfile(req, res) {
-  console.log("");
-  console.log("");
-  console.log("          userProfile Called");
-  console.log("");
-  console.log("");
+  console.log('');
+  console.log('');
+  console.log('          userProfile Called');
+  console.log('');
+  console.log('');
 
   try {
     const dataDecoded = res.locals.dataDecoded;
@@ -201,38 +203,38 @@ async function userProfile(req, res) {
 
     res.json({
       _id: _id,
-      firstName: nameFirst,
-      lastName: nameLast,
-      username: username,
+      nameFirst,
+      nameLast,
+      username,
       createdDate: createdAt,
       updatedLast: updatedAt,
     });
   } catch (err) {
     res.status(500).json({
-      message: "There is an issue in pulling your profile",
+      message: 'There is an issue in pulling your profile',
       error: errorHandler(err),
     });
   }
 }
 
 async function userUpdate(req, res) {
-  console.log("");
-  console.log("");
-  console.log("          userUpdateCalled");
-  console.log("");
-  console.log("");
+  console.log('');
+  console.log('');
+  console.log('          userUpdateCalled');
+  console.log('');
+  console.log('');
 
-  console.log("req.body: ", req.body);
+  console.log('req.body: ', req.body);
 
-  console.log("res.locals.dataDecoded: ", res.locals.dataDecoded);
+  console.log('res.locals.dataDecoded: ', res.locals.dataDecoded);
 
   let userFound = await userDecodeAndFind(res.locals.dataDecoded);
-  console.log("userFound: ", userFound);
+  console.log('userFound: ', userFound);
 
   const { _id, email, password } = userFound;
 
   switch (req.body.updateType) {
-    case "email":
+    case 'email':
       if (req.body.email) {
         let emailUpdate = await user.findOneAndUpdate(
           {
@@ -248,9 +250,9 @@ async function userUpdate(req, res) {
       }
       break;
 
-    case "password":
+    case 'password':
       if (req.body.password && req.body.passwordCompare) {
-        console.log(req.body.password, "||", req.body.passwordCompare);
+        console.log(req.body.password, '||', req.body.passwordCompare);
 
         try {
           if (
@@ -258,12 +260,12 @@ async function userUpdate(req, res) {
             req.body.password !== password &&
             isStrongPassword(req.body.password)
           ) {
-            console.log("My Password is so strong!");
+            console.log('My Password is so strong!');
 
             let passwordHashed = await passwordHasher(req.body.password);
-            console.log("passwordHashed: " + passwordHashed);
+            console.log('passwordHashed: ' + passwordHashed);
 
-            console.log("_id", _id);
+            console.log('_id', _id);
             let passwordUpdate = await User.findOneAndUpdate(
               {
                 _id: _id,
@@ -276,42 +278,42 @@ async function userUpdate(req, res) {
               }
             );
 
-            console.log("passwordUpdate: ", passwordUpdate);
+            console.log('passwordUpdate: ', passwordUpdate);
             res.json({
               passwordUpdate,
             });
           } else {
             res.status(500).json({
-              message: "There is and issue with your password",
+              message: 'There is and issue with your password',
             });
           }
         } catch (error) {
           res.status(500).json({
-            message: "An error has occurred on your update!",
+            message: 'An error has occurred on your update!',
           });
         }
       }
       break;
 
     default:
-      console.log("Not sure what to default yet");
+      console.log('Not sure what to default yet');
       break;
   }
 }
 
 async function userDelete(req, res) {
-  console.log("");
-  console.log("");
-  console.log("          userDelete Called");
-  console.log("");
-  console.log("");
+  console.log('');
+  console.log('');
+  console.log('          userDelete Called');
+  console.log('');
+  console.log('');
 
-  console.log("req.body: ", req.body);
+  console.log('req.body: ', req.body);
 
-  console.log("res.locals.dataDecoded: ", res.locals.dataDecoded);
+  console.log('res.locals.dataDecoded: ', res.locals.dataDecoded);
 
   let userFound = await userDecodeAndFind(res.locals.dataDecoded);
-  console.log("userFound: ", userFound);
+  console.log('userFound: ', userFound);
 
   const { _id, email, password } = userFound;
 
@@ -329,7 +331,7 @@ async function userDelete(req, res) {
     _id: _id,
   }).then(console.log(`User has been deleted and declared ${userFound}`));
   res.json({
-    message: "user deleted successfully",
+    message: 'user deleted successfully',
   });
 }
 
