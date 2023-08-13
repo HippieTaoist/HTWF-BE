@@ -6,6 +6,7 @@ const connectDB = require('./config/db');
 const cors = require('cors');
 
 // routes
+const users = require('./routes/users/usersRouter');
 const books = require('./routes/api/books');
 const blogPosts = require('./routes/api/blogPosts');
 const wormJokes = require('./routes/api/wormJokes');
@@ -29,6 +30,7 @@ app.get('/', (req, res) =>
 app.use('/api/books', books);
 app.use('/api/blogposts', blogPosts);
 app.use('/api/wormjokes', wormJokes);
+app.use('/api/users', users);
 
 const port = process.env.PORT || 8082;
 
