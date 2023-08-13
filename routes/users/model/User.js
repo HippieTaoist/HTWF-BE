@@ -48,6 +48,7 @@ const userSchema = new mongoose.Schema(
     },
     adminLevel: {
       type: Number,
+      default: 0,
     },
   },
   { timestamps: true }
