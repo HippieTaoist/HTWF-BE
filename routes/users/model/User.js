@@ -46,10 +46,6 @@ const userSchema = new mongoose.Schema(
       enum: ['basic', 'subscription', 'Adm!n'],
       default: 'basic',
     },
-    adminLevel: {
-      type: Number,
-      default: 0,
-    },
   },
   { timestamps: true }
 );
