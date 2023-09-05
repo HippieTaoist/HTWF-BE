@@ -36,6 +36,7 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
+      required: true,
       validate: [
         isStrongPassword,
         'Make A Stronger Password. (At least one NUMBER & on SPECIAL CHARACTER & one UPPERCASE LETTER & one LOWERCASE LETTER, with at least 8 characters in total.',

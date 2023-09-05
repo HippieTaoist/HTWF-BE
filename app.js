@@ -1,9 +1,13 @@
-// app.js
 require('dotenv').config();
 
+var createError = require('http-errors');
 const express = require('express');
-const connectDB = require('./config/db');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
 const cors = require('cors');
+
+// Mongo Database options
+const connectDB = require('./config/db');
 
 // routes
 const users = require('./routes/users/usersRouter');

@@ -17,7 +17,9 @@ async function passwordHasher(password) {
   let passwordHashed = await bcrypt.hash(password, salt);
 
   //   display hashed password  in console
-  console.log(passwordHashed);
+  console.log('passwordHasher: ' + passwordHashed);
+
+  return passwordHashed;
 }
 
 // SEND IT!

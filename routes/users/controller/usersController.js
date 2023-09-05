@@ -16,8 +16,9 @@ async function usersGet(req, res) {
   console.log('');
   console.log('');
 
+  console.log(req.username);
   try {
-    let payload = await user.find({});
+    let payload = await User.find({ username: req.username });
 
     res.json({
       message: 'Successfully Retrieved',
@@ -40,7 +41,7 @@ async function userGet(req, res) {
 
   try {
     console.log(req.params);
-    let payload = await Uer.findOne({
+    let payload = await User.findOne({
       username: req.params.username,
     });
     console.log(payload);
@@ -64,18 +65,15 @@ async function userCreate(req, res) {
   console.log('');
   console.log('');
 
-  const { userLevel, nameFirst, nameLast, username, email, password } =
+  const { nameFirst, nameLast, username, email, password, userLevel } =
     req.body;
 
-  console.log(req.body);
+  console.log('Step 1 - req.body', req.body);
+  let passwordHashed = await passwordHasher(password);
+  console.log('step 2 - passwordHashed', passwordHashed);
 
   try {
-    let passwordHashed = await passwordHasher(password).then(
-      (passwordHashed) => {
-        console.log('passwordHashed', passwordHashed);
-      }
-    );
-
+    console.log('step 3 - create user PWH', password, passwordHashed);
     const userCreated = new User({
       nameFirst,
       nameLast,
@@ -86,6 +84,7 @@ async function userCreate(req, res) {
     });
 
     let savedUser = await userCreated.save();
+    console.log('savedUser.password: ' + savedUser.password);
 
     res.json({
       message: 'Successful User Creation',
@@ -109,21 +108,20 @@ async function userLogin(req, res) {
   console.log('');
   console.log('');
 
-  const { email, username, password } = req.body;
+  const { signIn, password } = req.body;
+  console.log('signIn' + signIn, 'password' + password);
 
-  reqAttr = email ? email : username;
-
-  console.log(reqAttr);
+  // reqAttr = isEmail(signIn) ? email : username;
 
   try {
-    if (!isEmail(reqAttr)) {
+    if (!isEmail(signIn)) {
       userFound = await User.findOne({
-        username: username,
+        username: signIn,
       });
       console.log('username ueFound', userFound);
     } else {
       userFound = await User.findOne({
-        email: email,
+        email: signIn,
       });
       console.log('email userFound', userFound);
     }
@@ -136,7 +134,12 @@ async function userLogin(req, res) {
         error: 'Go Sign Up',
       });
     } else {
+      console.log('usf', userFound);
+      console.log('password', password);
+      console.log('userFound.password', userFound.password);
       let passwordCompare = await bcrypt.compare(password, userFound.password);
+
+      console.log('passwordcompare', passwordCompare);
 
       if (!passwordCompare) {
         return res.status(500).json({
